@@ -1,0 +1,25 @@
+name: Send Email on Push
+
+on:
+  push:
+    branches:
+      - '*'
+
+
+  
+jobs:
+  send_email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install mailutils
+        run: sudo apt-get update && sudo apt-get install -y mailutils
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Send email
+        env: 
+          EMAIL_ADDRESS: ${{secrets.EMAIL_ADDRESS}}
+        run: |
+          SUBJECT="github action was used"
+          BODY="github action was used"
+          echo -e "Subject:$SUBJECT\n$BODY" | mail -s "$SUBJECT" "$EMAIL_ADDRESS"
