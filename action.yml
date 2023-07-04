@@ -1,4 +1,5 @@
 name: Send Email on Push
+description: Send Email on Push
 
 on:
   push:
